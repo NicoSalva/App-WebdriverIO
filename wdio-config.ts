@@ -27,7 +27,7 @@ export const config: Options.Testrunner = {
           "appium:automationName": "UiAutomator2",
           "appium:deviceName": "emulator-5554",
           "appium:platformVersion": "13",
-          "appium:app": "/Users/U632638/Documents/latch/apps/James Rider_1.22.0.apk",
+          "appium:app": "/Users/U632638/Documents/LATCH-WEBDRIVERIO/apps/James Rider_1.22.0.apk",
           "appium:appPackage": "com.hdw.james.rider",
           "appium:appActivity": "com.hdw.james.rider.viewlayer.launcher.LauncherActivity"
         }

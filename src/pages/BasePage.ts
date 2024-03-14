@@ -125,23 +125,6 @@ export default class BasePage {
     }
 
     /**
-     * Obtiene una lista de elementos a partir de un localizador.
-     * 
-     * @param {string} locator - El localizador comun de los elementos.
-     * @returns {Promise<Array<WebdriverIO.Element>>} Array de elementos.
-     */
-    async getElements(locator: string): Promise<Array<WebdriverIO.Element>> {
-        try {
-            const elements = await driver.$$(locator);
-            elements.forEach(async (e) => { await e.waitForDisplayed({ timeout: 5000 }) });
-            return elements;
-        } catch (error) {
-            console.error(`Error al obtener los elementos para el localizador ${locator}:`, error);
-            throw new Error(`No se pudo obtener los elementos para el localizador: ${locator}`);
-        }
-    }
-
-    /**
      * Espera a que un elemento aparezca en pantalla.
      * 
      * @param {WebdriverIO.Element} element - El elemento a esperar.
@@ -162,44 +145,43 @@ export default class BasePage {
     }
 
     async scrollToElement(locator: string, direction: string, intensity = 20, startX: number = 50, startY: number = 50): Promise<WebdriverIO.Element> {
-        const maxRetries = 10;
+        const maxRetries = 12;
         if (typeof intensity !== 'number' || intensity <= 0) {
-            throw new Error('La intensidad debe ser un número positivo.');
+            throw new Error('Intensity must be a positive number.');
         }
         if (typeof startX !== 'number' || startX < 0 || startX > 100) {
-            throw new Error('El valor startX debe ser un número entre 0 y 100.');
+            throw new Error('The startX value must be a number between 0 and 100.');
         }
         if (typeof startY !== 'number' || startY < 0 || startY > 100) {
-            throw new Error('El valor startY debe ser un número entre 0 y 100.');
+            throw new Error('The startY value must be a number between 0 and 100.');
         }
         
-
         if (!['up', 'down'].includes(direction)) {
-            throw new Error(`La dirección proporcionada '${direction}' no es válida. Debe ser 'up' o 'down'.`);
+            throw new Error(`The provided direction '${direction}' is invalid. It must be 'up' or 'down'.`);
         }
-
+    
         let retries = 0;
         while (retries < maxRetries) {
             try {
                 const element = await driver.$(locator);
                 if (await element.isDisplayed()) {
-                    console.log('Elemento encontrado y visible');
+                    console.log('Element found and visible');
                     return element;
                 } else {
-                    console.log(`Elemento encontrado pero no visible, desplazando ${direction}...`);
+                    console.log(`Element found but not visible, scrolling ${direction}...`);
                     await this.customSwipe(direction, intensity, startX, startY);
                 }
             } catch (error) {
-                console.log(`Intento ${retries + 1}: Elemento no encontrado, desplazando ${direction}...`);
+                console.log(`Attempt ${retries + 1} of ${maxRetries}: Element not found, scrolling ${direction}...`);
                 await this.customSwipe(direction, intensity, startX, startY);
             }
             retries++;
             await browser.pause(1000);
         }
-
-        throw new Error(`El elemento con el locator '${locator}' no se encontró después de 5 intentos.`);
+    
+        throw new Error(`The element with the locator '${locator}' was not found after ${maxRetries} scroll attempts.`);
     }
-
+    
     async customSwipe(direction: string, intensity: number, startX: number, startY: number) {
         let start = { x: startX, y: startY };
         let end = { x: startX, y: startY };
@@ -220,7 +202,7 @@ export default class BasePage {
         }
 
         console.log(`Desplazando desde ${JSON.stringify(start)} a ${JSON.stringify(end)}`);
-        await Gestures.swipeOnPercentage(start, end, 100); // Aquí, 100% significa usar la longitud completa calculada.
+        await Gestures.swipeOnPercentage(start, end, 100); 
     }
 
 
