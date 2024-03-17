@@ -4,9 +4,9 @@ import Gestures from "../utils/Gestures";
 export default class BasePage {
 
     /**
-     * Realiza un tap (clic) en un elemento especificado por su localizador.
+     * Taps (clicks) on an element specified by its selector.
      *
-     * @param {WebdriverIO.Element} element - El elemento.
+     * @param {WebdriverIO.Element} element - The element to interact with.
      */
     async tap(element: WebdriverIO.Element) {
         try {
@@ -17,10 +17,10 @@ export default class BasePage {
     }
 
     /**
-     * Escribe texto en un campo de formulario identificado por su localizador.
+     * Types text into a form field identified by its selector.
      *
-     * @param {WebdriverIO.Element} element - El elemento.
-     * @param {string | number} text - El texto a escribir en el campo de formulario.
+     * @param {WebdriverIO.Element} element - The target element.
+    * @param {string | number} text - The text to enter into the field.
      */
     async type(element: WebdriverIO.Element, text: string | number) {
         try {
@@ -31,10 +31,10 @@ export default class BasePage {
     }
 
     /**
-     * Obtiene el texto mostrado de un elemento especificado por su localizador.
+     * Retrieves the displayed text of an element specified by its selector.
      *
-     * @param {WebdriverIO.Element} element - El elemento.
-     * @returns {Promise<string>} El texto del elemento.
+     * @param {WebdriverIO.Element} element - The element in question.
+     * @returns {Promise<string>} The element's text.
      */
     async getText(element: WebdriverIO.Element): Promise<string> {
         try {
@@ -45,37 +45,12 @@ export default class BasePage {
     }
 
     /**
-     * Recupera dinámicamente el texto de un elemento especificado por su localizador, con reintentos.
-     *
-     * @param {WebdriverIO.Element} element - El elemento.
-     * @param {number} maxRetries - Número máximo de intentos para recuperar el texto.
-     * @returns {Promise<string>} El texto recuperado del elemento.
-     * @throws {Error} Error si el texto no puede ser recuperado tras el número máximo de intentos.
+     * Fetches a mobile element by its selector, waiting for a specified time.
+     * 
+     * @param {string} locator - The element's locator.
+     * @param {number} [time=5] - Wait time in seconds (default is 5).
+     * @returns {Promise<WebdriverIO.Element>} The resolved element.
      */
-    async dynamicGetText(element: WebdriverIO.Element, maxRetries: number = 3): Promise<string> {
-        let retries = 0;
-        while (retries < maxRetries) {
-            try {
-                return await element.getText();
-            } catch (error) {
-                if (retries === maxRetries - 1) {
-                    console.error(`Error al recuperar texto para elemento después de ${maxRetries} intentos:`, error);
-                    throw new Error(`No se pudo recuperar el texto para el elemento`);
-                }
-                await new Promise(resolve => setTimeout(resolve, 1000)); // Espera 1 segundo antes del siguiente intento
-                retries++;
-            }
-        }
-        throw new Error("El texto no pudo ser recuperado después del número máximo de intentos.");
-    }
-
-    /**
- * Obtiene un elemento mobile a partir de un localizador.
- * 
- * @param {string} locator - El localizador del elemento.
- * @param {number} [time=5] - El tiempo de espera en segundos. Por defecto, 5 segundos.
- * @returns {Promise<WebdriverIO.Element>} Una promesa que resuelve en el elemento.
- */
     async getElement(locator: string, time: number = 5): Promise<WebdriverIO.Element> {
         try {
             const element = await driver.$(locator);
@@ -91,15 +66,13 @@ export default class BasePage {
     }
 
     /**
- * Espera a que un elemento esté visible basado en su localizador y luego lo retorna.
- * Itera la operación hasta un máximo de intentos definidos o 5 por defecto.
- * 
- * @param {string} locator - El localizador del elemento.
- * @param {number} [maxRetries=5] - Número máximo de intentos, por defecto es 5.
- * @param {number} [waitTime=5000] - Tiempo de espera en milisegundos para cada intento, por defecto 5000 ms.
- * @returns {Promise<WebdriverIO.Element>} Promesa que resuelve en el elemento una vez que está visible.
- * @throws {Error} Si el elemento no está visible después de los intentos máximos.
- */
+     * Waits for an element to be visible based on its locator, retrying up to a max limit.
+     * 
+     * @param {string} locator - The element's locator.
+     * @param {number} [maxRetries=5] - Max retry attempts (default is 5).
+     * @param {number} [waitTime=5000] - Wait time per attempt in milliseconds (default is 5000 ms).
+     * @returns {Promise<WebdriverIO.Element>} The element once visible.
+     */
     async getWaitElement(locator: string, maxRetries: number = 5, waitTime: number = 5000): Promise<WebdriverIO.Element> {
         let retries = 0;
         let element;
@@ -125,26 +98,36 @@ export default class BasePage {
     }
 
     /**
-     * Espera a que un elemento aparezca en pantalla.
+     * Waits for an element to appear on the screen.
      * 
-     * @param {WebdriverIO.Element} element - El elemento a esperar.
-     * @returns {Promise<boolean>} true si se encuentra. false si no se encuentra.
+     * @param {WebdriverIO.Element} element - The element to wait for.
+     * @returns {Promise<boolean>} True if displayed, false otherwise.
      */
     async waitForElementDisplayed(element: WebdriverIO.Element): Promise<boolean> {
         return await element.waitForDisplayed({ timeout: 6000 });
     }
 
     /**
-     * Espera a que un elemento exista.
+     * Waits for an element to exist.
      * 
-     * @param {WebdriverIO.Element} element - El elemento a esperar.
-     * @returns {Promise<boolean>} true si existe. false si no existe.
+     * @param {WebdriverIO.Element} element - The element to check for existence.
+     * @returns {Promise<boolean>} True if exists, false otherwise.
      */
     async waitForElementExist(element: WebdriverIO.Element): Promise<boolean> {
         return await element.waitForExist({ timeout: 9000 });
     }
 
-    async scrollToElement(locator: string, direction: string, intensity = 20, startX: number = 50, startY: number = 50): Promise<WebdriverIO.Element> {
+    /**
+     * Scrolls to an element specified by a locator, in a given direction.
+     * 
+     * @param {string} locator - The element's locator.
+     * @param {string} direction - The scroll direction ('up' or 'down').
+     * @param {number} intensity - The scroll intensity.
+     * @param {number} startX - The starting X percentage.
+     * @param {number} startY - The starting Y percentage.
+     * @returns {Promise<WebdriverIO.Element>} The element, if found and visible.
+     */
+    async scrollToElement(locator: string, direction: string, intensity: number = 20, startX: number = 50, startY: number = 50): Promise<WebdriverIO.Element> {
         const maxRetries = 12;
         if (typeof intensity !== 'number' || intensity <= 0) {
             throw new Error('Intensity must be a positive number.');
@@ -155,11 +138,11 @@ export default class BasePage {
         if (typeof startY !== 'number' || startY < 0 || startY > 100) {
             throw new Error('The startY value must be a number between 0 and 100.');
         }
-        
+
         if (!['up', 'down'].includes(direction)) {
             throw new Error(`The provided direction '${direction}' is invalid. It must be 'up' or 'down'.`);
         }
-    
+
         let retries = 0;
         while (retries < maxRetries) {
             try {
@@ -178,10 +161,18 @@ export default class BasePage {
             retries++;
             await browser.pause(1000);
         }
-    
+
         throw new Error(`The element with the locator '${locator}' was not found after ${maxRetries} scroll attempts.`);
     }
-    
+
+    /**
+     * Custom swipe action based on direction and intensity.
+     * 
+     * @param {string} direction - The swipe direction.
+     * @param {number} intensity - The swipe intensity.
+     * @param {number} startX - Starting X position (percentage).
+     * @param {number} startY - Starting Y position (percentage).
+     */
     async customSwipe(direction: string, intensity: number, startX: number, startY: number) {
         let start = { x: startX, y: startY };
         let end = { x: startX, y: startY };
@@ -202,8 +193,6 @@ export default class BasePage {
         }
 
         console.log(`Desplazando desde ${JSON.stringify(start)} a ${JSON.stringify(end)}`);
-        await Gestures.swipeOnPercentage(start, end, 100); 
+        await Gestures.swipeOnPercentage(start, end, 100);
     }
-
-
 }

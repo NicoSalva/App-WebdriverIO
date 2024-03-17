@@ -1,6 +1,5 @@
 import type { Options } from '@wdio/types'
 import * as chai from 'chai';
-import { Context } from './utils/Context';
 
 const tagExpression = process.env.TAG;
 if (!tagExpression) {
@@ -109,7 +108,7 @@ export const config: Options.Testrunner = {
     */
     beforeScenario: async function (world, context) {
         chai.config.truncateThreshold = 0;
-       // await driver.launchApp();
+        await driver.launchApp();
     },
     /**
      * Runs after a Cucumber Step.
@@ -137,7 +136,6 @@ export const config: Options.Testrunner = {
      * @param {object}                 context          Cucumber World object
     */
     afterScenario: async function (world, result, context) {
-        Context.resetVariableContext();
         await driver.removeApp(("com.hdw.james.rider"));
         
     },

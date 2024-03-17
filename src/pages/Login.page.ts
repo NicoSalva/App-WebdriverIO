@@ -1,31 +1,24 @@
-const PHONE_RECHARGE_BUTTON = '//*[@*="Recarga\nde celular"]'
-
-import { AssertionError } from "chai";
 import { loginLocators } from "../locators/Login.locators";
 import BasePage from "./BasePage";
 
 class LoginPage extends BasePage {
 
     elements = {
+
         startedButton: () => this.getElement(loginLocators.GET_STARTED_BUTTON),
         phonePrefix: () => this.getElement(loginLocators.PHONE_PREFIX),
         continueButton: () => this.getElement(loginLocators.INPUT_BUTTON),
         afghanistan: () => this.getElement(loginLocators.AFGHANISTAN_PHONE),
-        austriaPosition: () => this.scrollToElement(loginLocators.AUSTRIA_PHONE, "down", 100, 50, 75),
+        albaniaPosition: () => this.scrollToElement(loginLocators.ALBANIA_PHONE, "down", 100, 50, 75),
         afghanistanPosition: () => this.scrollToElement(loginLocators.AFGHANISTAN_PHONE, "down", 100, 50, 75),
         phoneInput: () => this.getElement(loginLocators.PHONE_INPUT),
         verificationButton: () => this.getElement(loginLocators.VERIFICATION_BUTTON),
-
         verificationCode: (inputNumber: number) => {
             const locator = loginLocators.INPUT_GENERIC.replace('{n}', inputNumber.toString());
             return this.getElement(locator);
         },
-
-        permissionRequest: () => this.getElement(loginLocators.PERMISSION_REQUEST_TEXT),
-        descriptionPermission: () => this.getElement(loginLocators.DESCRIPTION_PERMISSION_TEXT),
-        howDoesIt: () => this.getElement(loginLocators.HOW_DOES_IT_WORK_TEXT),
-        permissionButton:() => this.getElement(loginLocators.PERMISSION_CONTINUE),
-        enter6Digit:() => this.getElement(loginLocators.ENTER_6_DIGIT_TEXT)
+        enter6Digit: () => this.getElement(loginLocators.ENTER_6_DIGIT),
+        enterPhoneNumber: () => this.getElement(loginLocators.ENTER_PHONE_NUMBER)
     }
 
     async clickStartedButton() {
@@ -64,8 +57,8 @@ class LoginPage extends BasePage {
         await this.tap(await this.elements.afghanistanPosition());
     }
 
-    async clickAustria() {
-        await this.tap(await this.elements.austriaPosition());
+    async clickAlbania() {
+        await this.tap(await this.elements.albaniaPosition());
     }
 
     async typePhoneInput(input: string) {
@@ -74,10 +67,6 @@ class LoginPage extends BasePage {
 
     async clickPhoneInput() {
         this.tap(await this.elements.phoneInput());
-    }
-
-    async getContinueButton() {
-        return await this.elements.verificationButton();
     }
 
     async clickVerificationContinueButton() {
@@ -90,55 +79,27 @@ class LoginPage extends BasePage {
         }
 
         const digits = code.split('');
-
-        // Asumiendo que los dígitos en 'digits' se corresponden con los inputs 1 a 6
         for (let i = 0; i < digits.length; i++) {
-            const inputNumber = i + 1;  // Ajustando el índice para comenzar desde 1
+            const inputNumber = i + 1;
             const verificationCodeElement = await this.elements.verificationCode(inputNumber);
             await this.type(verificationCodeElement, digits[i]);
         }
     }
 
-    async getTextPermissionRequest(){
-        return await this.getText(await this.elements.permissionRequest());
-    }
-
-    async getTextDescriptionPermission(){
-        return await this.getText(await this.elements.descriptionPermission());
-    }
-
-    async getTextHowDoesIt(){
-        return await this.getText(await this.elements.howDoesIt());
-    }
-
-    async permissionRequestChecked(){
-        return await this.waitForElementExist(await this.elements.permissionRequest());
-    }
-
-    async descriptionPermittionChecked(){
-        return await this.waitForElementExist(await this.elements.descriptionPermission());
-    }
-
-    async howDoesItChecked(){
-        return await this.waitForElementExist(await this.elements.howDoesIt());
-    }
-
-    async permissionButtonChecked(){
-        return await this.waitForElementExist(await this.elements.permissionButton());
-    }
-
-    async getPermissionButton() {
-        return await this.elements.permissionButton();
-    }
-
-    async enter6DigitChecked(){
+    async enter6DigitChecked() {
         return await this.waitForElementExist(await this.elements.enter6Digit());
     }
-
-    async getTextEnter6Digit(){
+    async getTextEnter6Digit() {
         return await this.getText(await this.elements.enter6Digit());
     }
 
+    async enterPhoneNumberChecked() {
+        return await this.waitForElementExist(await this.elements.enterPhoneNumber());
+    }
+
+    async getTextEnterPhoneNumber() {
+        return await this.getText(await this.elements.enterPhoneNumber());
+    }
 }
 
 export default new LoginPage()

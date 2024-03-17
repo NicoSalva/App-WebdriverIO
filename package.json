@@ -1,7 +1,7 @@
 {
-  "name": "pepa-automation-framework",
+  "name": "latch-mobile-framework",
   "version": "2.0.0",
-  "description": "Construido por el equipo de QA Automation de Personal Pay",
+  "description": "",
   "scripts": {
     "clean": "rimraf allure-results && mkdir allure-results",
     "allure": "allure generate ./allure-results",
