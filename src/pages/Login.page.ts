@@ -89,6 +89,7 @@ class LoginPage extends BasePage {
     async enter6DigitChecked() {
         return await this.waitForElementExist(await this.elements.enter6Digit());
     }
+    
     async getTextEnter6Digit() {
         return await this.getText(await this.elements.enter6Digit());
     }

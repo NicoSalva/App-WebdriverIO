@@ -14,7 +14,7 @@ class Gestures {
         let pressOptions = this.getDeviceScreenCoordinates(SCREEN_SIZE, start);
         let moveToScreenCoordinates = this.getDeviceScreenCoordinates(SCREEN_SIZE, end);
 
-        // Ajusta las coordenadas basadas en el porcentaje
+        // Adjust the coordinates based on the percentage
         moveToScreenCoordinates.y += (moveToScreenCoordinates.y - pressOptions.y) * (percentage / 100 - 1);
         moveToScreenCoordinates.x += (moveToScreenCoordinates.x - pressOptions.x) * (percentage / 100 - 1);
 
@@ -24,7 +24,7 @@ class Gestures {
     static async swipe(from: XY, to: XY) {
         const adjustedTo = {
             x: to.x,
-            y: from.y + (to.y - from.y) * 3 // Ajusta este multiplicador según sea necesario
+            y: from.y + (to.y - from.y) * 3 // Adjust this multiplier as needed
         };
 
         await driver.performActions([
@@ -35,13 +35,13 @@ class Gestures {
                 actions: [
                     { type: 'pointerMove', duration: 0, x: from.x, y: from.y },
                     { type: 'pointerDown', button: 0 },
-                    { type: 'pause', duration: 100 }, // Breve pausa antes de iniciar el swipe
-                    { type: 'pointerMove', duration: 100, x: adjustedTo.x, y: adjustedTo.y }, // Más rápido
+                    { type: 'pause', duration: 100 }, // Brief pause before starting the swipe
+                    { type: 'pointerMove', duration: 100, x: adjustedTo.x, y: adjustedTo.y }, // Faster
                     { type: 'pointerUp', button: 0 }
                 ],
             }
         ]);
-        await driver.pause(500); // Una pausa corta después del swipe
+        await driver.pause(500); // A short pause after the swipe
     }
 
     private static getDeviceScreenCoordinates(screenSize: RectReturn, coordinates: XY): XY {

@@ -3,7 +3,6 @@ import BasePage from "./BasePage";
 
 class PermissionsPage extends BasePage {
 
-
     elements = {
 
         permissionRequest: () => this.getElement(permissionsLocators.PERMISSION_REQUEST_TEXT),
