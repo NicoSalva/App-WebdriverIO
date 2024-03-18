@@ -7,7 +7,6 @@ stdout
 allure-report
 allure-results
 envs/.env
-apps/*
 logs/
 local.log
 
