@@ -34,7 +34,7 @@ Local test execution capabilities.
 
 ## JDK para macOS:
 
-- Mediante [Homebrew](https://brew.sh/index)
+- install via [Homebrew](https://brew.sh/index)
 
 ```
 brew install openjdk@17
