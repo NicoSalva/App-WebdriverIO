@@ -80,8 +80,9 @@ Run the following command to install all the necessary dependencies for the proj
 ```
 npm install
 ```
+## CONFIGURATION
+The main configuration file is wdio-config.ts, which includes all the necessary setup to run your tests. Ensure you update the capabilities and app path according to your device and the location of your APK.
 
-## Preparing Your Application
 Before running the tests, place the version of your app in the 'apps' folder and replace the name in the capabilities section of the wdio-config.ts file:
 ```
 capabilities: [
@@ -98,7 +99,7 @@ capabilities: [
 ```
 Replace YourAppName_YourAppVersion.apk with the actual app name and version, and ensure the appPackage and appActivity are correctly set for your application.
 
-## Running Tests
+## RUNNING TESTS
 To run all the tests on a local Android device, you can use the following command:
 ```
 npm run android:local
@@ -117,17 +118,15 @@ or
 TAG=@logout npm run android:local
 ```
 
-## Reports
+## REPORTS
 ```
 npm run allure
 ```
 ```
 npm run open-allure
 ```
-## Configuration
-The main configuration file is wdio-config.ts, which includes all the necessary setup to run your tests. Ensure you update the capabilities and app path according to your device and the location of your APK.
 
-## Hooks
+## HOOKS
 The framework utilizes various WebdriverIO hooks to customize the test execution, such as beforeScenario and afterScenario, which help set up the environment before each scenario and clean up after each one.
 
 ## ABOUT THE SOLUTION
