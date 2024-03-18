@@ -78,3 +78,12 @@ Working with Cucumber enhances readability for the entire team, allowing individ
 Regarding the POM, I decided to create a BasePage class to abstract all common methods to our pages, such as tap, type, getElement, getText, and scroll. This approach helps us avoid code repetition across every page we create. Instead of establishing a page for each application screen, I focused on having a LoginPage for all login-related functionalities and only added Pages for screens that require interaction or hold significant importance. Often, frameworks become overloaded with multiple pages that are unclear in their purpose or contain very few declarations and methods.
 
 I chose to work with Allure for reporting since it has always provided excellent results. It's also worth mentioning that if you want to test the solution with an Android phone connected to your PC, you should retrieve the device name using adb devices from the console and replace it in the capabilities.
+
+## LOGIN AND LOGOUT TEST AUTOMATION
+I chose to focus on automating the Login and Logout features primarily because these were the only functionalities where the app version and the provided test data allowed me to work comfortably. This decision was based on the fact that they didn't require any additional validation, given I didn't have access to the account with which the provided one by the challenge was created.
+
+## Handling the Permissions Screen
+Instead of skipping the permissions screen, I decided to work through it, adding more substance to my testing solution. There's an option to bypass this screen altogether using the appium:autoGrantPermissions capability, but I chose to include explicit handling of this screen in my tests. This approach was intentional, aiming to enhance the test coverage and address scenarios where we might need to verify the user's interaction with the permissions explicitly.
+
+## Explicit Wait During Automation
+While interacting with the Android permissions, I found myself compelled to employ a 500ms explicit wait to ensure seamless UI interaction. Typically, forcing waits in automation isn't ideal; however, occasionally, the framework can execute much faster than our app can respond, especially when dealing with native OS UI elements. This mismatch can lead to issues, particularly when engaging with the system's native UI.
