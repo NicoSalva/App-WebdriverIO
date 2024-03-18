@@ -9,9 +9,7 @@ Utilization of the BDD pattern with Cucumber.
 Report generation with Allure.
 Local test execution capabilities.
 
-## INSTALLATION
-
-## 🛠️ Required Tools
+## 🛠️ STACK
 
 - 📊 Allure Reports
 
@@ -27,12 +25,10 @@ Local test execution capabilities.
 
 - 🤖 Webdriver IO
 
-- 🎭 IDE - Visual Studio Code [download](https://code.visualstudio.com/download)
-
 - 🥒 CucumberJs [VS link](https://marketplace.visualstudio.com/items?itemName=CucumberOpen.cucumber-official)
 
 
-## JDK para macOS:
+## JDK for macOS:
 
 - install via [Homebrew](https://brew.sh/index)
 
