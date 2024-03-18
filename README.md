@@ -1,41 +1,70 @@
-# Latch Mobile Framework
+## LATCH MOBILE FRAMEWORK
 
 This project is a mobile automation framework utilizing WebdriverIO and Appium. It is set up to run tests on Android devices using the Cucumber BDD design pattern.
 
 ## Features
-
-- Mobile test automation framework with WebdriverIO.
-- Integration with Appium for communicating with Android devices.
-- Utilization of the BDD pattern with Cucumber.
-- Report generation with Allure.
-- Local test execution capabilities.
+Mobile test automation framework with WebdriverIO.
+Integration with Appium for communicating with Android devices.
+Utilization of the BDD pattern with Cucumber.
+Report generation with Allure.
+Local test execution capabilities.
 
 ## Prerequisites
-
 Ensure you have the following installed:
 
-- Node.js (v14 or higher)
-- Appium (v2.2.2 or higher)
-- An Android emulator or a real device set up and ready to use.
+Node.js (v14 or higher)
+Appium (v2.2.2 or higher)
+An Android emulator or a real device set up and ready to use.
 
 ## Installation
-
 Clone this repository and navigate to the cloned directory. Install the dependencies using npm:
 
 ```
 https://github.com/NicoSalva/LATCH-WebdriverIO.git
 ```
-Once you have project cloned locally, goto project :
+
+Once you have the project cloned locally, go to the project:
 
 ```
 cd LATCH-WebdriverIO
 ```
-
 Run the following command to install all the necessary dependencies for the project:
 
 ```
 npm install
 ```
+
+## 🛠️ Required Tools
+General
+NodeJs version 18.18.2 (MacOS)
+Typescript version 8.19.4
+
+JDK for macOS:
+Through Homebrew:
+
+```
+brew install openjdk@17
+```
+
+We recommend setting up your mobile environment using the appium-installer package:
+
+```
+npm install -g appium-installer
+```
+
+Using the appium-installer command will initiate the installation helper for the server and drivers.
+
+Appium Drivers: Crucial for interacting with the specific mobile applications of each operating system. Ensure you have installed:
+
+UiAutomator2 (for Android)
+XCUITEST (for iOS)
+Appium-doctor: This tool is essential for verifying the correct configuration of Appium and alerting about possible issues.
+
+```
+npm install -g appium-doctor
+```
+
+Once installed, you can run appium-doctor to check that everything is set up correctly.
 
 ## Running Tests
 To run all the tests on a local Android device, you can use the following command:
