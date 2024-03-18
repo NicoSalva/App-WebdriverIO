@@ -1,6 +1,7 @@
 node_modules/
 /playwright/.cache/
 reports/
+package-lock.json
 .DS_Store
 stdout
 allure-report
