@@ -191,8 +191,6 @@ export default class BasePage {
                 end.x = Math.min(start.x + intensity, 100);
                 break;
         }
-
-        console.log(`Desplazando desde ${JSON.stringify(start)} a ${JSON.stringify(end)}`);
         await Gestures.swipeOnPercentage(start, end, 100);
     }
 }

@@ -48,50 +48,58 @@ When('confirms the verification code', async function (dataTable: any) {
 });
 
 When('the user accepts the application permissions', async function () {
-    // Checks if the permission button is valid and enabled, and verifies the related texts for permissions
+    // Check if the permissions button is present and enabled, and verify the associated texts for permissions.
     const permissionButtonValidation = await PermissionsPage.permissionButtonChecked();
     const permissionButton = await PermissionsPage.getPermissionButton();
     const permissionText = await PermissionsPage.getTextPermissionRequest();
     const descriptionText = await PermissionsPage.getTextDescriptionPermission();
     const howDoesText = await PermissionsPage.getTextHowDoesIt();
 
-    // Ensures that the permission button is valid, enabled, and the texts are as expected
+    // Ensure that the permissions button is valid, enabled, and the texts are as expected.
     expect(permissionButtonValidation, 'The permission button should be valid but it is not').to.be.true;
     expect(await permissionButton.isEnabled(), 'The permission button should be enabled but it is not').to.be.true;
     expect(permissionText, `Expected the permission text to be 'Permissions Request' but found '${permissionText}'`).to.equal('Permissions Request');
     expect(descriptionText, `Expected the description text to match the specific permission description but found '${descriptionText}'`).to.equal("In order for this app to work as well as possible, we'll ask you to agree to these permissions.");
     expect(howDoesText, `Expected 'How does it work?' text but found '${howDoesText}'`).to.equal('How does it work?');
 
-     const textLocationButton = await PermissionsPage.getTextPermissionLocationButton();
+    // Interact with the location permission button and validate the corresponding message.
+    const textLocationButton = await PermissionsPage.getTextPermissionLocationButton();
     expect(textLocationButton, `Expected the location permission text to be 'Allow' but found '${textLocationButton}'`).to.equal('Allow');
-    
-    await PermissionsPage.clickPermissionLocationButton();
-    await delay(500)
 
+    await PermissionsPage.clickPermissionLocationButton();
+    await delay(500);  // Brief pause to wait for the UI response.
+
+    // Verify the confirmation dialog for location permissions and accept it.
     const msg = await PermissionsPage.allowMsgDisplayed();
-     const textMsg = await PermissionsPage.getTextAllowMsg()
-     expect(msg).to.be.true;
-     expect(textMsg, `'${textMsg}'`).to.equal(`Allow James Rider to access this device’s location?`);
+    const textMsg = await PermissionsPage.getTextAllowMsg();
+    expect(msg).to.be.true;
+    expect(textMsg, `Expected dialog message to be 'Allow James Rider to access this device’s location?' but found '${textMsg}'`).to.equal(`Allow James Rider to access this device’s location?`);
     await PermissionsPage.clickAllowPermissionLocationButton();
+
+    // Confirm that the location permission button shows 'Allowed' after acceptance.
     const textAllowedLocationButton = await PermissionsPage.getTextPermissionLocationButton();
     expect(textAllowedLocationButton, `Expected the location permission text to be 'Allowed' but found '${textAllowedLocationButton}'`).to.equal('Allowed');
 
+    // Repeat the process for notification permissions.
     const textNotificationButton = await PermissionsPage.getTextPermissionNotificationButton();
-    expect(textNotificationButton, `Expected the location permission text to be 'Allow' but found '${textNotificationButton}'`).to.equal('Allow');
+    expect(textNotificationButton, `Expected the notification permission text to be 'Allow' but found '${textNotificationButton}'`).to.equal('Allow');
 
-     await PermissionsPage.clickPermissionNotificationButton();
-    const notficationMsg = await PermissionsPage.allowMsgDisplayed();
-     const textNotMsg = await PermissionsPage.getTextAllowMsg()
-     expect(notficationMsg).to.be.true;
-     expect(textNotMsg, `'${textNotMsg}'`).to.equal(`Allow James Rider to send you notifications?`);
-    
-     await PermissionsPage.clickAllowPermissionNotificationButton();
+    await PermissionsPage.clickPermissionNotificationButton();
+    const notificationMsg = await PermissionsPage.allowMsgDisplayed();
+    const textNotMsg = await PermissionsPage.getTextAllowMsg();
+    expect(notificationMsg).to.be.true;
+    expect(textNotMsg, `Expected dialog message to be 'Allow James Rider to send you notifications?' but found '${textNotMsg}'`).to.equal(`Allow James Rider to send you notifications?`);
+
+    await PermissionsPage.clickAllowPermissionNotificationButton();
+
+    // Confirm that the notification permission button shows 'Allowed' after acceptance.
     const textAllowedNotificationButton = await PermissionsPage.getTextPermissionNotificationButton();
-    expect(textAllowedNotificationButton, `Expected the location permission text to be 'Allowed' but found '${textAllowedNotificationButton}'`).to.equal('Allowed');
+    expect(textAllowedNotificationButton, `Expected the notification permission text to be 'Allowed' but found '${textAllowedNotificationButton}'`).to.equal('Allowed');
 
-     await PermissionsPage.clickPermissionButton();
-
+    // Finalize the interaction with the permissions button.
+    await PermissionsPage.clickPermissionButton();
 });
+
 
 Then('the user should be successfully logged into the application', async function () {
     // Verifies the successful login with a welcome message
