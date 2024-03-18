@@ -9,42 +9,36 @@ Utilization of the BDD pattern with Cucumber.
 Report generation with Allure.
 Local test execution capabilities.
 
-## Prerequisites
-Ensure you have the following installed:
-
-Node.js (v14 or higher)
-Appium (v2.2.2 or higher)
-An Android emulator or a real device set up and ready to use.
-
-## Installation
-Clone this repository and navigate to the cloned directory. Install the dependencies using npm:
-
-```
-https://github.com/NicoSalva/LATCH-WebdriverIO.git
-```
-
-Once you have the project cloned locally, go to the project:
-
-```
-cd LATCH-WebdriverIO
-```
-Run the following command to install all the necessary dependencies for the project:
-
-```
-npm install
-```
+## INSTALLATION
 
 ## 🛠️ Required Tools
-General
-NodeJs version 18.18.2 (MacOS)
-Typescript version 8.19.4
 
-JDK for macOS:
-Through Homebrew:
+- 📊 Allure Reports
+
+- 🟣 Appium
+
+- ☕ Chai Assertions
+
+- 🟨 JavaScript
+
+- 🟢 NodeJs
+
+- 🟦 TypeScript
+
+- 🤖 Webdriver IO
+
+- 🎭 IDE - Visual Studio Code [download](https://code.visualstudio.com/download)
+
+- 🥒 CucumberJs [VS link](https://marketplace.visualstudio.com/items?itemName=CucumberOpen.cucumber-official)
+
+
+## JDK para macOS:
+
+- Mediante [Homebrew](https://brew.sh/index)
 
 ```
 brew install openjdk@17
-```
+``` 
 
 We recommend setting up your mobile environment using the appium-installer package:
 
@@ -65,6 +59,28 @@ npm install -g appium-doctor
 ```
 
 Once installed, you can run appium-doctor to check that everything is set up correctly.
+
+
+## INSTALLING THE PROJECT
+
+
+Clone this repository and navigate to the cloned directory. Install the dependencies using npm:
+
+```
+https://github.com/NicoSalva/LATCH-WebdriverIO.git
+```
+
+Once you have the project cloned locally, go to the project:
+
+```
+cd LATCH-WebdriverIO
+```
+Run the following command to install all the necessary dependencies for the project:
+
+```
+npm install
+```
+
 
 ## Running Tests
 To run all the tests on a local Android device, you can use the following command:
