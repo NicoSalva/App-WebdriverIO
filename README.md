@@ -81,6 +81,22 @@ Run the following command to install all the necessary dependencies for the proj
 npm install
 ```
 
+## Preparing Your Application
+Before running the tests, place the version of your app in the 'apps' folder and replace the name in the capabilities section of the wdio-config.ts file:
+```
+capabilities: [
+  {
+    "platformName": "Android",
+    "appium:automationName": "UiAutomator2",
+    "appium:deviceName": "emulator-5554",
+    "appium:platformVersion": "13",
+    "appium:app": "apps/YourAppName_YourAppVersion.apk",
+    "appium:appPackage": "your.app.package",
+    "appium:appActivity": "your.app.activity"
+  }
+],
+```
+Replace YourAppName_YourAppVersion.apk with the actual app name and version, and ensure the appPackage and appActivity are correctly set for your application.
 
 ## Running Tests
 To run all the tests on a local Android device, you can use the following command:
