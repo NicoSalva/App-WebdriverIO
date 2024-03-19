@@ -1,5 +1,4 @@
 import type { Options } from '@wdio/types'
-import * as chai from 'chai';
 
 const tagExpression = process.env.TAG;
 if (!tagExpression) {
@@ -107,7 +106,6 @@ export const config: Options.Testrunner = {
      * @param {object}                 context  Cucumber World object
     */
     beforeScenario: async function (world, context) {
-        chai.config.truncateThreshold = 0;
         await driver.launchApp();
     },
     /**
